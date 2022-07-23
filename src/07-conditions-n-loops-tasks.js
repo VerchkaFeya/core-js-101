@@ -162,8 +162,15 @@ function doRectanglesOverlap(/* rect1, rect2 */) {
  *   { center: { x:0, y:0 }, radius:10 },  { x:10, y:10 }   => false
  *
  */
-function isInsideCircle(/* circle, point */) {
-  throw new Error('Not implemented');
+function isInsideCircle(circle, point) {
+  const { x: a, y: b } = point;
+  const { x, y } = circle.center;
+  const { radius } = circle;
+
+  if (((x - a) ** 2) + ((y - b) ** 2) < radius ** 2) {
+    return true;
+  }
+  return false;
 }
 
 
@@ -207,8 +214,22 @@ function findFirstSingleChar(str) {
  *   5, 3, true, true   => '[3, 5]'
  *
  */
-function getIntervalString(/* a, b, isStartIncluded, isEndIncluded */) {
-  throw new Error('Not implemented');
+function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
+  let result = '';
+
+  if (a < b) {
+    result = `[${a}, ${b}]`;
+  }
+  if (a > b) {
+    result = `[${b}, ${a}]`;
+  }
+  if (!isStartIncluded) {
+    result = `(${result.slice(1)}`;
+  }
+  if (!isEndIncluded) {
+    result = `${result.slice(0, -1)})`;
+  }
+  return result;
 }
 
 
@@ -344,8 +365,8 @@ function isBracketsBalanced(/* str */) {
  *    365, 4  => '11231'
  *    365, 10 => '365'
  */
-function toNaryString(/* num, n */) {
-  throw new Error('Not implemented');
+function toNaryString(num, n) {
+  return num.toString(n);
 }
 
 
@@ -419,8 +440,32 @@ function getMatrixProduct(/* m1, m2 */) {
  *    [    ,   ,    ]]
  *
  */
-function evaluateTicTacToePosition(/* position */) {
-  throw new Error('Not implemented');
+function evaluateTicTacToePosition(position) {
+  position.forEach((item) => {
+    if (item.length === 1) {
+      item.push(undefined);
+      item.push(undefined);
+    }
+    if (item.length === 2) {
+      item.push(undefined);
+    }
+  });
+
+  const position2 = position.flat();
+
+  const wins = [[7, 8, 9], [4, 5, 6], [1, 2, 3], [7, 4, 1],
+    [8, 5, 2], [9, 6, 3], [1, 5, 9], [3, 5, 7]];
+
+  const positionWins = [];
+
+  wins.forEach((win) => {
+    positionWins.push([position2[win[0] - 1], position2[win[1] - 1], position2[win[2] - 1]]);
+  });
+
+  const arr = positionWins.map((item) => Array.from(new Set(item)));
+  const result = arr.filter((item) => item.length === 1).flat();
+
+  return result ? result[0] : undefined;
 }
 
 
