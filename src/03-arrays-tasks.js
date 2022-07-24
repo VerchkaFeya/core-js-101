@@ -234,9 +234,8 @@ function toArrayOfSquares(arr) {
  *   [ 0, 0, 0, 0, 0]         => [ 0, 0, 0, 0, 0]
  *   [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ] => [ 1, 3, 6, 10, 15, 21, 28, 36, 45, 55 ]
  */
-function getMovingSum(/* arr */) {
-  // arr.map((item, index, array) => arr.slice(0, index).reduce((sum, currrent) => sum + currrent));
-  throw new Error('Not implemented');
+function getMovingSum(arr) {
+  return arr.map((_, index) => arr.slice(0, index + 1).reduce((sum, current) => sum + current));
 }
 
 /**
@@ -473,9 +472,8 @@ function getIdentityMatrix(n) {
  *     0, 100 => [ 0, 1, 2, ..., 100 ]
  *     3, 3   => [ 3 ]
  */
-function getIntervalArray(/* start, end */) {
-  // return Array(Math.abs(start) + Math.abs(end));
-  throw new Error('Not implemented');
+function getIntervalArray(start, end) {
+  return [...Array(end - start + 1)].map((_, index) => start + index);
 }
 
 /**
